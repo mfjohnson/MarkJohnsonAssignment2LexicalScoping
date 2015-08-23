@@ -13,23 +13,32 @@
 ## Defines 4 subfunctions associated with the 
 ## cache to support setting and getting the 
 ## base matrix and the inverse matrix.
+##
 makeCacheMatrix <- function(x = numeric()) {
   m <- NULL
+  
+  # Stores the base matrix and initializes the
+  # calculated inverted matrix to null.
   set <- function(y) {
     x <<- y
     m <<- NULL
   }
+  
+  # Retrieve the initial base matrix
   get <- function() x
-  setmatrix <- function(value) {
-    m <<- value
-  }
-  getmatrix <- function() {
-    m
-  }
+  
+  ## Stores the calculated inverted matrix
+  setmatrix <- function(value) m <<- value
+  
+  ## If available returns the calculated inverted matrix.  Null if the 
+  ## inverted matrix is not yet calculated for this instance
+  getmatrix <- function()    m
+
   list(set = set, get = get,
        setmatrix = setmatrix,
        getmatrix = getmatrix)
 }
+
 
 ## cacheSolve
 ## Parameter: makeCacheMatrix instance
@@ -51,10 +60,3 @@ cacheSolve <- function(x, ...) {
   m
 }
 
-
-
-#a <- makeCacheMatrix(matrix(c(1,3,3,1,4,3,1,3,4), nrow=3, ncol=3))
-a$get()
-a$getmatrix()
-b <- cacheSolve(a)
-b
