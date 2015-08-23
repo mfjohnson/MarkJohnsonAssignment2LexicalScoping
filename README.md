@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Introduction
 
 This second programming assignment will require you to write an R
@@ -103,3 +104,7 @@ In order to complete this assignment, you must do the following:
 ### Grading
 
 This assignment will be graded via peer assessment.
+=======
+# MarkJohnsonAssignment2LexicalScoping
+Mark Johnson Coursera Assignment #2 Lexical Scoping Project
+>>>>>>> b4feee5b2846f68f3400af5e3aaeae65418804f1
