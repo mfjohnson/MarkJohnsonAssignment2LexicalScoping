@@ -1,15 +1,60 @@
-## Put comments here that give an overall description of what your
-## functions do
+## cachematrix.R
+# Author: Mark Johnson
+##
+## cachematrix provides a pair of methods to support the
+## calculation of an inverse matrix and to cache the
+## result in the environmental variable 'm'.
 
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+## makeCacheMatrix
+## Parameter: matrix
+## Stores the matrix passed in the
+## the function matrix parameter into the functions
+## environment variable using lexical scoping.
+## Defines 4 subfunctions associated with the 
+## cache to support setting and getting the 
+## base matrix and the inverse matrix.
+makeCacheMatrix <- function(x = numeric()) {
+  m <- NULL
+  set <- function(y) {
+    x <<- y
+    m <<- NULL
+  }
+  get <- function() x
+  setmatrix <- function(value) {
+    m <<- value
+  }
+  getmatrix <- function() {
+    m
+  }
+  list(set = set, get = get,
+       setmatrix = setmatrix,
+       getmatrix = getmatrix)
 }
 
-
-## Write a short comment describing this function
-
+## cacheSolve
+## Parameter: makeCacheMatrix instance
+## takes the matrix object held by the makeCacheMatrix
+## and if there is not a calculated matrix
+## value held in cache executes a solve operation,
+## otherwise the cached value is passed to the caller
+## of this function.
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  m <- x$getmatrix()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
+  }
+  data <- x$get()
+  m <- solve(data, ...)
+  x$setmatrix(m)
+  m
 }
+
+
+
+#a <- makeCacheMatrix(matrix(c(1,3,3,1,4,3,1,3,4), nrow=3, ncol=3))
+a$get()
+a$getmatrix()
+b <- cacheSolve(a)
+b
